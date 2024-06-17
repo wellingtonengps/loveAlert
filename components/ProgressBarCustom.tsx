@@ -7,7 +7,6 @@ type ProgessBarProps = {
 };
 
 export function ProgressBarCustom({ progress }: ProgessBarProps) {
-  //const [progress, setProgress] = useState(new Animated.Value(0));
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export function ProgressBarCustom({ progress }: ProgessBarProps) {
   }, [progress]);
 
   const width = animatedValue.interpolate({
-    inputRange: [0, 100],
+    inputRange: [0, 200],
     outputRange: [0, 300], // 300 is the max width of the container
     extrapolate: "clamp", // Ensure the value stays within the range
   });

@@ -30,11 +30,17 @@ export default function Home() {
 
   useEffect(() => {
     if (progress === 200) {
-      setModalVisible(true);
+      setTimeout(() => {
+        setModalVisible(true);
+      }, 900);
 
       setTimeout(() => {
         setModalVisible(false);
-      }, 2000);
+      }, 3000);
+
+      setTimeout(() => {
+        setProgress(0);
+      }, 4000);
     }
   }, [progress]);
 
