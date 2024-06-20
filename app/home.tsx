@@ -15,6 +15,8 @@ import * as Crypto from "expo-crypto";
 import { useEffect, useState } from "react";
 import { ProgressBarCustom } from "@/components/ProgressBarCustom";
 import { MaterialIcons } from "@expo/vector-icons";
+import Notification from "@/components/notification/Notification";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -24,7 +26,7 @@ export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
 
   function handleProgress() {
-    setProgress(progress + 20);
+    setProgress(progress + 100);
     console.log(progress);
   }
 
@@ -45,48 +47,52 @@ export default function Home() {
   }, [progress]);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "space-evenly",
-        alignItems: "center",
-      }}
-    >
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+    <SafeAreaView>
+      <View
+        style={{
+          //flex: 1,
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              Notificação enviada para{" "}
-              <Text style={styles.textBold}>{name}</Text>
-            </Text>
-            <MaterialIcons name="done" size={60} color="green" />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                Notificação enviada para{" "}
+                <Text style={styles.textBold}>{name}</Text>
+              </Text>
+              <MaterialIcons name="done" size={60} color="green" />
+            </View>
           </View>
+        </Modal>
+
+        <View style={styles.content}>
+          <Text style={styles.text}>
+            Conectado <Text style={styles.textBold}>{name}</Text>
+          </Text>
+          <ProgressBarCustom progress={progress} />
+          <Text style={styles.info}>
+            Presione o botão até completar a barra de progresso
+          </Text>
         </View>
-      </Modal>
-      <View style={styles.content}>
-        <Text style={styles.text}>
-          Conectado <Text style={styles.textBold}>{name}</Text>
-        </Text>
-        <ProgressBarCustom progress={progress} />
-        <Text style={styles.info}>
-          Presione o botão até completar a barra de progresso
-        </Text>
+        <Notification progress={progress} />
+        <Pressable onPress={handleProgress}>
+          <Image
+            style={styles.logo}
+            source={require("@/assets/images/heart-button.png")}
+          />
+        </Pressable>
       </View>
-      <Pressable onPress={handleProgress}>
-        <Image
-          style={styles.logo}
-          source={require("@/assets/images/heart-button.png")}
-        />
-      </Pressable>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -116,9 +122,9 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   logo: {
-    width: 360,
-    height: 367,
-    marginTop: -80,
+    //width: 360,
+    //height: 367,
+    //marginTop: -80,
     //backgroundColor: "red",
   },
   centeredView: {
