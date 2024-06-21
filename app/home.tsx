@@ -50,9 +50,10 @@ export default function Home() {
     <SafeAreaView>
       <View
         style={{
-          //flex: 1,
-          justifyContent: "space-between",
+          height: "100%",
           alignItems: "center",
+          paddingTop: 80,
+          paddingBottom: 100,
         }}
       >
         <Modal
@@ -121,12 +122,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 40,
   },
-  logo: {
-    //width: 360,
-    //height: 367,
-    //marginTop: -80,
-    //backgroundColor: "red",
-  },
+  logo: {},
   centeredView: {
     flex: 1,
     justifyContent: "center",

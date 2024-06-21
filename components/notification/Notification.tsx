@@ -37,7 +37,7 @@ function handleRegistrationError(errorMessage: string) {
   throw new Error(errorMessage);
 }
 
-async function registerForPushNotificationsAsync() {
+export async function registerForPushNotificationsAsync() {
   if (Platform.OS === "android") {
     Notifications.setNotificationChannelAsync("default", {
       name: "default",
@@ -96,9 +96,10 @@ export default function Notification(props: NotificationProps) {
   const responseListener = useRef<Notifications.Subscription>();
 
   useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => setExpoPushToken(token ?? ""))
-      .catch((error: any) => setExpoPushToken(`${error}`));
+    //registerForPushNotificationsAsync()
+    //.then((token) => setExpoPushToken(token ?? ""))
+    //.catch((error: any) => setExpoPushToken(`${error}`));
+    setExpoPushToken("ExponentPushToken[J_69-FK9F-iNEmZxi-zvlS]");
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
@@ -149,13 +150,6 @@ export default function Notification(props: NotificationProps) {
           {notification && JSON.stringify(notification.request.content.data)}
         </Text>
       </View>
-      <Button
-        title="Press to Send Notification"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-          console.log("teste");
-        }}
-      />
     </View>
   );
 }
